@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-import './styles/quasar.sass'
+// import './styles/quasar.sass'
 import iconSet from 'quasar/icon-set/fontawesome-v5'
 import lang from 'quasar/lang/zh-hans.js'
 import '@quasar/extras/ionicons-v4/ionicons-v4.css'

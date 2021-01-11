@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
-	"github.com/gohouse/converter"
+	"dorapocket/core"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/gommon/log"
 )
 
 func main() {
@@ -12,13 +12,10 @@ func main() {
 
 	InitRouter(e)
 
-	err := converter.NewTable2Struct().
-		SavePath("h:/dorapocket/model/model.go").
-		Dsn("root:MhxzKhl*@tcp(101.200.46.254:3306)/wenwen?charset=utf8").
-		EnableJsonTag(true).
-		TagKey("gorm").
-		Run()
-	fmt.Println(err)
+	core.Init("config/config.toml")
 
-	e.Start(":80")
+	port := core.Config.GetString("server.port")
+	log.Info("server started on port ",port)
+
+	e.Start(":"+port)
 }

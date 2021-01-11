@@ -1,0 +1,22 @@
+[server]
+port = 80
+
+
+[database]
+type = "mysql"
+host = "10.190.0.157"
+port = 3306
+username = "root"
+password = "apac12345"
+database = "dse_config"
+
+[mongo]
+uri = "mongodb://taiphon:taiphon123@10.190.7.52:27050"
+max_pool_size = 100
+min_pool_size = 10
+max_idle_time = 10
+database = "dorabox"
+
+[dbpool]
+max_idle_conn = 10
+max_open_conn = 100
