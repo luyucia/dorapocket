@@ -17,12 +17,12 @@ func NewProjectService(dao dao.MongoBaseDao)  ProjectService{
 	return ProjectService{dao:dao}
 }
 
-func (service ProjectService) Create(ctx context.Context,project *model.Project) error {
+func (service ProjectService) Create(ctx context.Context,project *model.Project) (string,error) {
 	objectId,err := service.dao.Insert(ctx,project)
 
 	log.Info(objectId)
 
-	return err
+	return objectId.Hex(),err
 
 }
 
@@ -30,7 +30,10 @@ func (service ProjectService) Update(ctx context.Context,id string,project *mode
 
 	ObjectId,err :=  primitive.ObjectIDFromHex(id)
 
+	log.Debug(project)
+
 	if err!=nil {
+
 		log.Error(err)
 	}
 
@@ -38,9 +41,13 @@ func (service ProjectService) Update(ctx context.Context,id string,project *mode
 		{"_id",ObjectId},
 	}
 
+	// 忽略_id
+	project.Id = ""
+
 	update:= bson.M{
 		"$set":project,
 	}
+
 
 	return service.dao.Update(ctx,filter,update)
 }

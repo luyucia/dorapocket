@@ -1,0 +1,116 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {},
+        "license": {}
+    },
+    "paths": {
+        "/project/create": {
+            "post": {
+                "description": "创建项目",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "创建项目",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "项目名称",
+                        "name": "name",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "项目描述",
+                        "name": "description",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/project/delete": {
+            "post": {
+                "description": "项目删除",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "项目删除",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/project/edit": {
+            "post": {
+                "description": "项目编辑",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "项目编辑",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "项目名称",
+                        "name": "name",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "项目描述",
+                        "name": "description",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/project/list": {
+            "get": {
+                "description": "项目列表",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "项目列表",
+                "responses": {}
+            }
+        },
+        "/question/create": {
+            "post": {
+                "description": "ping",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "ping",
+                "responses": {}
+            }
+        }
+    }
+}

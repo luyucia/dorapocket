@@ -6,6 +6,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+	"reflect"
 	"time"
 )
 
@@ -37,6 +38,8 @@ func (b *MongoBaseDao) Update(ctx context.Context,filter interface{},update inte
 
 	if err != nil {
 		log.Error(err)
+		log.Error(filter)
+		log.Error(update)
 		return  0,err
 	}
 	return result.ModifiedCount,err
@@ -81,9 +84,11 @@ func (b *MongoBaseDao) QueryList(ctx context.Context,filter bson.M, s interface{
 
 	defer cur.Close(ctx)
 	var resultList []interface{}
+	tt := reflect.TypeOf(s)
+
 	for cur.Next(ctx) {
-		var t = s
-		err := cur.Decode(&t)
+		var t = reflect.New(tt).Interface()
+		err := cur.Decode(t)
 		if err != nil {
 			log.Error(err)
 		}

@@ -3,11 +3,15 @@ package main
 import (
 	"dorapocket/controllers"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	"github.com/swaggo/echo-swagger"
 	_ "dorapocket/docs"
 )
 
 func InitRouter(r *echo.Echo) {
+
+
+	r.Use(middleware.CORS())
 
 	r.GET("/ping", controllers.Ping)
 

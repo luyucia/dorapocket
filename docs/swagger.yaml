@@ -1,0 +1,77 @@
+info:
+  contact: {}
+  license: {}
+paths:
+  /project/create:
+    post:
+      consumes:
+      - application/json
+      description: 创建项目
+      parameters:
+      - description: 项目名称
+        in: formData
+        name: name
+        type: string
+      - description: 项目描述
+        in: formData
+        name: description
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: 创建项目
+  /project/delete:
+    post:
+      consumes:
+      - application/x-www-form-urlencoded
+      description: 项目删除
+      parameters:
+      - description: ID
+        in: formData
+        name: id
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: 项目删除
+  /project/edit:
+    post:
+      consumes:
+      - application/x-www-form-urlencoded
+      description: 项目编辑
+      parameters:
+      - description: ID
+        in: formData
+        name: id
+        type: string
+      - description: 项目名称
+        in: formData
+        name: name
+        type: string
+      - description: 项目描述
+        in: formData
+        name: description
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: 项目编辑
+  /project/list:
+    get:
+      consumes:
+      - application/json
+      description: 项目列表
+      produces:
+      - application/json
+      responses: {}
+      summary: 项目列表
+  /question/create:
+    post:
+      consumes:
+      - application/json
+      description: ping
+      produces:
+      - application/json
+      responses: {}
+      summary: ping
+swagger: "2.0"

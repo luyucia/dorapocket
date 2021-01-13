@@ -6,7 +6,6 @@ import (
 	"net/http"
 )
 
-
 // 创建项目
 // @Summary 创建项目
 // @Description 创建项目
@@ -24,13 +23,13 @@ func CreateProject(c echo.Context) error {
 		return err
 	}
 
-	service:= initializePorjectService()
-
-	if err := service.Create(c.Request().Context(),p) ; err!=nil{
-		return c.JSON(http.StatusOK,NewErrorResponse(err.Error()))
+	service := initializePorjectService()
+	id, err := service.Create(c.Request().Context(), p)
+	if err != nil {
+		return c.JSON(http.StatusOK, NewErrorResponse(err.Error()))
 	}
 
-	return c.JSON(http.StatusOK,NewSuccessResponse())
+	return c.JSON(http.StatusOK, NewDataResponse(id))
 }
 
 // @Summary 项目列表
@@ -47,12 +46,11 @@ func ListProject(c echo.Context) error {
 		return err
 	}
 
-	service:= initializePorjectService()
+	service := initializePorjectService()
 
 	rs := service.List(c.Request().Context())
-	return c.JSON(http.StatusOK,NewDataResponse(rs))
+	return c.JSON(http.StatusOK, NewDataResponse(rs))
 }
-
 
 // @Summary 项目编辑
 // @Description 项目编辑
@@ -67,24 +65,22 @@ func UpdateProject(c echo.Context) error {
 
 	p := new(model.Project)
 
-	//if err := c.Bind(p); err != nil {
-	//	return err
-	//}
-
-	ObjectId := c.FormValue("id")
-	p.Name = c.FormValue("name")
-	p.Description = c.FormValue("description")
-
-
-	service:= initializePorjectService()
-	cs,err:=service.Update(c.Request().Context(),ObjectId,p)
-	if err!=nil {
-		return c.JSON(http.StatusOK,NewErrorResponse(err.Error()))
+	if err := c.Bind(p); err != nil {
+		return err
 	}
 
-	return c.JSON(http.StatusOK,NewDataResponse(cs))
-}
+	ObjectId := p.Id
+	//p.Name = c.FormValue("name")
+	//p.Description = c.FormValue("description")
 
+	service := initializePorjectService()
+	cs, err := service.Update(c.Request().Context(), ObjectId, p)
+	if err != nil {
+		return c.JSON(http.StatusOK, NewErrorResponse(err.Error()))
+	}
+
+	return c.JSON(http.StatusOK, NewDataResponse(cs))
+}
 
 // @Summary 项目删除
 // @Description 项目删除
@@ -95,14 +91,20 @@ func UpdateProject(c echo.Context) error {
 // @Router /project/delete [post]
 func DeleteProject(c echo.Context) error {
 
-	ObjectId := c.FormValue("id")
+	p := new(model.Project)
 
-	service:= initializePorjectService()
-
-	rs,err := service.CleanOne(c.Request().Context(),ObjectId)
-
-	if err!=nil {
-		return c.JSON(http.StatusOK,NewErrorResponse(err.Error()))
+	if err := c.Bind(p); err != nil {
+		return err
 	}
-	return c.JSON(http.StatusOK,NewDataResponse(rs))
+
+	ObjectId := p.Id
+
+	service := initializePorjectService()
+
+	rs, err := service.CleanOne(c.Request().Context(), ObjectId)
+
+	if err != nil {
+		return c.JSON(http.StatusOK, NewErrorResponse(err.Error()))
+	}
+	return c.JSON(http.StatusOK, NewDataResponse(rs))
 }
