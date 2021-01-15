@@ -82,6 +82,7 @@
         },
         mounted() {
             let app = this
+
             project.List().then(response => {
                 app.projectList = response.data.data
             })

@@ -1,12 +1,12 @@
 <template>
   <div class="hello">
-    <h1>{{$store.state.data.name}}</h1>
+    <h1>{{$store.state.data}}</h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'DoraMarkdown',
   props: {
     msg: String
   }
